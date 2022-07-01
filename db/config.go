@@ -23,4 +23,6 @@ func InitDB() *gorm.DB {
 
 func MigrateDB(conn *gorm.DB) {
 	conn.AutoMigrate(entity.Batch{}, entity.Student{})
+	conn.Exec("DROP TABLE students;")
+	conn.Exec("DROP TABLE batches;")
 }
