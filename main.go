@@ -2,16 +2,13 @@ package main
 
 import (
 	"fmt"
-	"go-db/db"
+	"go-db/config"
 	"go-db/entity"
 )
 
 func main() {
-	// uid := uuid.New()
-	// tmp := uid.String()
-	// fmt.Println(len(tmp))
-	conn := db.InitDB()
-	db.MigrateDB(conn)
+	conn := config.InitDB
+	config.MigrateDB(conn)
 	aksesStudent := entity.AksesStudent{DB: conn}
 	aksesKelas := entity.AksesKelas{DB: conn}
 	var input int = 0
