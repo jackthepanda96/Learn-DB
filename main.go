@@ -8,6 +8,7 @@ import (
 
 func main() {
 	conn := db.InitDB()
+	db.MigrateDB(conn)
 	aksesStudent := entity.AksesStudent{DB: conn}
 	var input int = 0
 	for input != 99 {
@@ -16,6 +17,7 @@ func main() {
 		fmt.Println("2. Lihat Data Siswa")
 		fmt.Println("3. Update Data Siswa")
 		fmt.Println("4. Hapus Data Siswa")
+		fmt.Println("5. Lihat Siswa Tertentu")
 		fmt.Println("99. Keluar")
 		fmt.Print("Masukkan Pilihan menu: ")
 		fmt.Scanln(&input)
@@ -43,6 +45,16 @@ func main() {
 			for _, val := range aksesStudent.GetAllData() {
 				fmt.Println(val)
 			}
+		case 4:
+			var ID int
+			fmt.Print("Masukkan ID yang akan dihapus ")
+			fmt.Scanln(&ID)
+			fmt.Println(aksesStudent.HapusMurid(ID))
+		case 5:
+			var ID int
+			fmt.Print("Masukkan ID yang akan dicari ")
+			fmt.Scanln(&ID)
+			fmt.Println(aksesStudent.GetSpecificUser(ID))
 		default:
 			continue
 		}
