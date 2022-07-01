@@ -14,7 +14,7 @@ type Student struct {
 	Email    string
 	NomorHP  string
 	Alamat   string
-	ID_Kelas int
+	ID_Kelas string `gorm:"type:varchar(36)"`
 }
 
 type AksesStudent struct {

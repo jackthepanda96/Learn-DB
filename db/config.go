@@ -22,5 +22,5 @@ func InitDB() *gorm.DB {
 }
 
 func MigrateDB(conn *gorm.DB) {
-	conn.AutoMigrate(entity.Student{})
+	conn.AutoMigrate(entity.Batch{}, entity.Student{})
 }

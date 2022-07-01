@@ -7,9 +7,13 @@ import (
 )
 
 func main() {
+	// uid := uuid.New()
+	// tmp := uid.String()
+	// fmt.Println(len(tmp))
 	conn := db.InitDB()
 	db.MigrateDB(conn)
 	aksesStudent := entity.AksesStudent{DB: conn}
+	aksesKelas := entity.AksesKelas{DB: conn}
 	var input int = 0
 	for input != 99 {
 		fmt.Println("\tSistem pendataan siswa")
@@ -18,6 +22,8 @@ func main() {
 		fmt.Println("3. Update Data Siswa")
 		fmt.Println("4. Hapus Data Siswa")
 		fmt.Println("5. Lihat Siswa Tertentu")
+		fmt.Println("6. Tambah Batch")
+		fmt.Println("7. Lihat Data Batch")
 		fmt.Println("99. Keluar")
 		fmt.Print("Masukkan Pilihan menu: ")
 		fmt.Scanln(&input)
@@ -25,7 +31,6 @@ func main() {
 		switch input {
 		case 1:
 			var newStudent entity.Student
-			newStudent.ID_Kelas = 7
 			fmt.Print("Masukkan nama: ")
 			fmt.Scanln(&newStudent.Nama)
 			fmt.Print("Masukkan alamat: ")
@@ -34,6 +39,8 @@ func main() {
 			fmt.Scanln(&newStudent.NomorHP)
 			fmt.Print("Masukkan email: ")
 			fmt.Scanln(&newStudent.Email)
+			fmt.Print("Masukkan ID_Kelas: ")
+			fmt.Scanln(&newStudent.ID_Kelas)
 			res := aksesStudent.TambahMuridBaru(newStudent)
 			if res.ID == 0 {
 				fmt.Println("Tidak bisa input siswa, ada error")
@@ -55,6 +62,17 @@ func main() {
 			fmt.Print("Masukkan ID yang akan dicari ")
 			fmt.Scanln(&ID)
 			fmt.Println(aksesStudent.GetSpecificUser(ID))
+		case 6:
+			var newStudent entity.Batch
+			fmt.Print("Masukkan nama: ")
+			fmt.Scanln(&newStudent.NamaKelas)
+
+			aksesKelas.TambahKelasBaru(newStudent)
+
+			fmt.Println("Berhasl input kelas")
+		case 7:
+			fmt.Println("Daftar Seluruh Kelas")
+			fmt.Println(aksesKelas.GetAllKelas())
 		default:
 			continue
 		}
